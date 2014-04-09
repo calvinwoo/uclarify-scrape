@@ -2,13 +2,11 @@
 
 ##Quickstart
 
+Install mongoDB and start and start an instance.
+Install other dependencies:
+
 ```
 pip install html5lib
-```
-
-Install mongoDB and start and start an instance.
-
-```
 pip install pymongo
 ```
 
