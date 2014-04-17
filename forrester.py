@@ -49,7 +49,16 @@ def grab_info(html):
 
     info['authors'] = []
     for a in soup.find('h3', class_ = 'author-name').find_all('a'):
-        info['authors'].append(a.get_text())
+        author = a.get_text().strip(' ,')
+        info['authors'].append(author)
+
+    info['downloads'] = []
+    li = soup.find('ul', class_='resultlist_download').find('li').get_text()
+    if 'downloads' in li:
+        downloads = li.replace('downloads', '').strip()
+    else:
+        downloads = '0'
+    info['downloads'] = downloads
     return info
 
 def main(argv):
