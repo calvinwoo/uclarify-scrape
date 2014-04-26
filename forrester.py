@@ -26,9 +26,10 @@ def scrapper(start_page, stop_page):
         # Loop through reports and insert info into the DB
         for item in links:
             link = url_base + item
+            print ''
             print link
             info = grab_info(br.open(link))
-            print info
+            # print info
             reports.insert(info)
     
 def grab_links(html):
@@ -41,17 +42,27 @@ def grab_links(html):
 def grab_info(html):
     info = {}
     soup = BeautifulSoup(html, 'html5lib')
-    try:
-        price = soup.find('span', class_ = 'anonUserBlock').find('span').get_text()
-        info['price'] = ''.join(filter(lambda x: x.isdigit(), price))
-    except:
-        info['price'] = None
 
+    top_section = soup.find('div', class_ = 'analyst-contents')
+    # Grab authors
     info['authors'] = []
-    for a in soup.find('h3', class_ = 'author-name').find_all('a'):
+    for a in top_section.find('h3', class_ = 'author-name').find_all('a'):
         author = a.get_text().strip(' ,')
         info['authors'].append(author)
 
+    # Grab title
+    title = top_section.find('h3').get_text()
+    info['title'] = title
+
+    # Grab price
+    try:
+        price = soup.find('span', class_ = 'anonUserBlock').find('span').get_text()
+        price = ''.join(filter(lambda x: x.isdigit(), price))
+    except:
+        price = None
+    info['price'] = price
+    
+    # Grab downloads
     info['downloads'] = []
     li = soup.find('ul', class_='resultlist_download').find('li').get_text()
     if 'downloads' in li:
@@ -59,6 +70,18 @@ def grab_info(html):
     else:
         downloads = '0'
     info['downloads'] = downloads
+
+    # Calculate revenue
+    if price is None:
+        revenue = None
+    else:
+        revenue = float(price) * float(downloads)
+    info['revenue'] = revenue
+
+    # Grab description
+    description = soup.find('div', class_='component_abstract_content').get_text()
+    info['description'] = description
+
     return info
 
 def main(argv):
