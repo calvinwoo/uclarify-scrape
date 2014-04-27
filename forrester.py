@@ -66,8 +66,8 @@ def grab_info(html):
     info['role'] = role
 
     # Grab date. Seconds since 'epoch'
-    date_string = top_section.find('span', class_ = 'date').get_text().replace(',', '')    # April 25 2014
-    date_string = ' '.join(date_string.split())
+    date_string = top_section.find('span', class_ = 'date').get_text().replace(',', '')    # April 25 2014 with a bunch of whitespace in the middle
+    date_string = ' '.join(date_string.split())     # Remove whitespace in the middle
     report_date = time.mktime(time.strptime(date_string, '%B %d %Y'))
     todays_date = time.time()
     date = todays_date - report_date
