@@ -4,6 +4,7 @@ import urlparse
 import mechanize
 import re
 import sys
+import time
 from pymongo import MongoClient
 
 def scrapper(start_page, stop_page):
@@ -53,6 +54,24 @@ def grab_info(html):
     # Grab title
     title = top_section.find('h3').get_text()
     info['title'] = title
+
+    # Grab role. "FOR APPLICATION DEVELOPMENT & DELIVERY PROFESSIONALS", remove the first and last words
+    role_list = top_section.find('h2').get_text().split()
+    role_list.pop()
+    role_list.pop(0)
+    role = ''
+    for word in role_list:
+        role = role + word + ' '
+    role = role.strip()
+    info['role'] = role
+
+    # Grab date. Seconds since 'epoch'
+    date_string = top_section.find('span', class_ = 'date').get_text().replace(',', '')    # April 25 2014
+    date_string = ' '.join(date_string.split())
+    report_date = time.mktime(time.strptime(date_string, '%B %d %Y'))
+    todays_date = time.time()
+    date = todays_date - report_date
+    info['date'] = date
 
     # Grab price
     try:
