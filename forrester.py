@@ -83,12 +83,15 @@ def grab_info(html):
     
     # Grab downloads
     info['downloads'] = []
-    li = soup.find('ul', class_='resultlist_download').find('li').get_text()
-    if 'downloads' in li:
-        downloads = li.replace('downloads', '').strip()
-    else:
-        downloads = '0'
-    info['downloads'] = downloads
+    try:
+        li = soup.find('ul', class_='resultlist_download').find('li').get_text()
+        if 'downloads' in li:
+            downloads = li.replace('downloads', '').strip()
+        else:
+            downloads = '0'
+        info['downloads'] = downloads
+    except:
+        info['downloads'] = '0'
 
     # Calculate revenue
     if price is None:
