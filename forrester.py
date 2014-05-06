@@ -32,9 +32,11 @@ def scrapper(start_page, stop_page):
             link = url_base + item
             print ''
             print link
-            info = grab_info(br.open(link))
-            # print info
-            reports.insert(info)
+            try:
+                info = grab_info(br.open(link))
+                reports.insert(info)
+            except:
+                print 'Error.'
     
 def grab_links(html):
     links = []
@@ -59,13 +61,16 @@ def grab_info(html):
     info['title'] = title
 
     # Grab role. "FOR APPLICATION DEVELOPMENT & DELIVERY PROFESSIONALS", remove the first and last words
-    role_list = top_section.find('h2').get_text().split()
-    role_list.pop()
-    role_list.pop(0)
-    role = ''
-    for word in role_list:
-        role = role + word + ' '
-    role = role.strip()
+    try:
+        role_list = top_section.find('h2').get_text().split()
+        role_list.pop()
+        role_list.pop(0)
+        role = ''
+        for word in role_list:
+            role = role + word + ' '
+        role = role.strip()
+    except:
+        role = None
     info['role'] = role
 
     # Grab date. Seconds since 'epoch'
@@ -92,9 +97,9 @@ def grab_info(html):
             downloads = li.replace('downloads', '').strip()
         else:
             downloads = '0'
-        info['downloads'] = downloads
     except:
-        info['downloads'] = '0'
+        downloads = '0'
+    info['downloads'] = downloads
 
     # Calculate revenue
     if price is None:
