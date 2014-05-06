@@ -21,6 +21,9 @@ def scrapper(start_page, stop_page):
 
     # Loop through the given page range and open up the URLs
     for current_page in range(start_page, stop_page+1):
+        print ''
+        print 'Page '+str(current_page)
+        print ''
         current_url = url_page + str(current_page)
         links = grab_links(br.open(current_url))    # Get links to reports in a list
 
@@ -101,7 +104,10 @@ def grab_info(html):
     info['revenue'] = revenue
 
     # Grab description
-    description = soup.find('div', class_='component_abstract_content').get_text()
+    try:
+        description = soup.find('div', class_='component_abstract_content').get_text()
+    except:
+        description = ''
     info['description'] = description
 
     return info
