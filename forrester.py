@@ -38,11 +38,42 @@ def scrapper(start_page, stop_page):
             except:
                 print 'Error.'
     
+
+def scrapper_django(start_page, stop_page):
+    url_base = 'http://www.forrester.com/'
+    url_page = 'http://www.forrester.com/analysts?page='   #page number will be appended
+
+    br = mechanize.Browser()
+
+    # Loop through the given page range and open up the URLs
+    for current_page in range(start_page, stop_page+1):
+        current_url = url_page + str(current_page)
+        links = grab_analyst_links(br.open(current_url))    # Get links to analysts in list
+
+        # Loop through reports and insert info into the DB
+        print links
+        for name in links:
+            link_name = name.replace(' ', '-')
+            link = url_base + link_name
+            print ''
+            print link
+            info = grab_analyst_info(br.open(link), name)
+            print info
+
 def grab_links(html):
     links = []
     soup = BeautifulSoup(html, 'html5lib')
     for div in soup.find_all('div', class_ = 'num_result_content_anonymous'):
         links.append(div.find('a').get('href'))
+    return links
+
+def grab_analyst_links(html):
+    links = []
+    soup = BeautifulSoup(html, 'html5lib')
+    div = soup.find('div', class_ = 'analyst-showcase')
+    for a_href in div.find_all('a'):
+        name = a_href.get_text()
+        links.append(name)
     return links
 
 def grab_info(html):
@@ -97,7 +128,7 @@ def grab_info(html):
             downloads = li.replace('downloads', '').strip()
         else:
             downloads = '0'
-    except:
+    except: # get text fails
         downloads = '0'
     info['downloads'] = downloads
 
@@ -117,8 +148,48 @@ def grab_info(html):
 
     return info
 
+def grab_analyst_info(html, name):
+    info = {}
+    soup = BeautifulSoup(html, 'html5lib')
+    
+    top_section = soup.find('div', class_ = 'analyst-overview')
+
+    # Grab name
+    info['name'] = name
+
+    # Grab url
+    info['url'] = 'http://www.forrester.com/' + name.replace(' ', '-')
+
+    # Grab image
+    img = top_section.find('img')
+    info['img_link'] = img['src']
+
+    # Grab job title & customer
+    heading = top_section.find('div', class_='analyst-contents').find('h3')
+    job_title = heading.get_text()
+    job_title = str(job_title).split('serving')
+    info['job_title'] = job_title[0].lower().title()
+    
+    customer = heading.find('span', class_='bold')
+    customer_text = str(customer.get_text())
+    if 'Professionals' in customer_text:
+        info['customer'] = customer_text.rsplit(' ', 1)[0].lower().title()
+    else:
+        info['customer'] = customer_text.rsplit(' ', 1)[0].lower().title()
+    print(info['customer'])
+
+    # Grab specializations
+    info['specializations'] = []
+    coverage_section = top_section.find('div', class_ = 'analyst-research-coverage')
+    coverage_areas = coverage_section.find('div', class_= 'customer_links')
+    for a_coverage in coverage_areas.find_all('a'):
+        specialization = a_coverage.get_text()
+        info['specializations'].append(specialization)
+
+    return info
+
 def main(argv):
-    scrapper(int(argv[0]), int(argv[1]))
+    scrapper_django(int(argv[0]), int(argv[1]))
 
 if __name__ == '__main__':
    main(sys.argv[1:])
