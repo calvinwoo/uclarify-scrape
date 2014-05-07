@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="/static/analysis.css">
+<!-- 		<link rel="stylesheet" type="text/css" href="style.css">
+ -->	</head>
+	<body>
+		<h1 class="main-title">Analyst report earnings flux capacitsadfasdfor</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+						
+				</div>
+				<div class="col-md-3">
+					<div id="input-container">
+						<form action="/get_money" id="input-form">
+							<div class="input-label">Name</div>
+							<input name='name' id="name_id" class="form-control" type="text" placeholder="John Smith"/>
+
+							<input name='averageScore' id="averagescore_id" type="hidden" />
+
+							<div class="input-label">Price</div>
+							<input name='price' class="form-control" type="text" placeholder="30000"/>
+
+							<div class="input-label">Days since release</div>
+							<input name="days" class="form-control" type="text" placeholder="30"/>
+
+							<div class="input-label">Role</div>
+
+							<div id="dd" class="wrapper-dropdown-3 dropdown-toggle" tabindex="1">
+							    <span id="ddDisplay" class="dropdown-toggle">Role</span>
+							    <ul class="dropdown">
+							        <li value="classic"><a >Analyst Relations</a></li>
+							        <li value="classic"><a >Application Development & Delivery</a></li>
+							        <li value="classic"><a >CIO</a></li>
+							        <li value="classic"><a >CMO</a></li>
+							        <li value="classic"><a >Customer Experience</a></li>
+							        <li value="classic"><a >Customer Insights</a></li>
+							        <li value="classic"><a >eBusiness & Channel Strategy</a></li>
+							        <li value="classic"><a >Enterprise Architecture</a></li>
+							        <li value="classic"><a >Infrastructure & Operations</a></li>
+							        <li value="classic"><a >Marketing Leadership</a></li>
+							        <li value="classic"><a >Sales Enablement</a></li>
+							        <li value="classic"><a >Security & Risk</a></li>
+							        <li value="classic"><a >Sourcing & Vendor Management</a></li>
+							    </ul>
+							</div>
+							<input id="id_role" type="hidden" name="role">
+							<br>
+							<input type="submit" class="btn btn-primary btn-lg btn-block" value="submit" />
+						</form>
+					</div>
+				</div>
+				<div class="col-md-8 col-md-offset-1">
+					<div class="content-title">
+						Estimated Revenue
+					</div>
+					<div class="money">
+						<span class="dollar">$</span>
+						<div class="amount">30,000</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="/static/modernizr.custom.79639.js"></script>
+		<script type="text/javascript" src="/static/jquery.csv-0.71.min.js"></script>
+		<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<script type="text/javascript" src="/static/analysis.js"></script>
+	</body>
+</html>
