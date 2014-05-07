@@ -1,4 +1,5 @@
 import csv
+import json
 from pymongo import MongoClient
 
 client = MongoClient('localhost', 27017)
@@ -24,6 +25,9 @@ for report in reports.find():
 for author, revenues in author_revenues.items():
     average_revenue = sum(revenues) / float(len(revenues))
     author_average[author] = average_revenue
+
+with open('authorandscore.json', 'w') as outfile:
+    json.dump(author_average, outfile)
 
 with open('reportswithscore.csv', 'wb') as csvfile:
     writer = csv.writer(csvfile)
