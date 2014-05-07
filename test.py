@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import patsy
 from statsmodels.formula.api import ols
 
 movies = pd.read_csv('http://www.rossmanchance.com/iscam2/data/movies03RT.txt', sep='\t', names=['X', 'score', 'rating', 'genre', 'box_office', 'running_time'], skiprows=1)
