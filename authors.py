@@ -10,7 +10,7 @@ author_average = {}
 
 for report in reports.find():
     authors = report['authors']
-    revenue = report['revenue']
+    revenue = report['downloads']
     if revenue is None:
         revenue = 0
     else:
@@ -31,9 +31,12 @@ with open('reportswithscore.csv', 'wb') as csvfile:
     writer.writerow(['title', 'role', 'date', 'authors', 'authorscore', 'price', 'downloads', 'revenue'])
     for report in reports.find():
         if len(report['authors']) is 0:
-            score_max = 0
+            average_score = 0
         else:
-            score_max = -1
+            score_total = 0
+            count = 0
             for author in report['authors']:
-                score_max = max(score_max, author_average[author])
-        writer.writerow([report['title'].encode('ascii', 'ignore'), report['role'], report['date'], report['authors'], score_max, report['price'], report['downloads'], report['revenue']])
+                score_total = score_total + author_average[author]
+                count = count + 1
+            average_score = score_total / count
+        writer.writerow([report['title'].encode('ascii', 'ignore'), report['role'], report['date'], report['authors'], average_score, report['price'], report['downloads'], report['revenue']])
