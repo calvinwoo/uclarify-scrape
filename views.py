@@ -108,10 +108,12 @@ def compute_example_revenue():
 
 @app.route('/get_money')
 def compute_revenue():
-    authorscore = float(request.data['averageScore'])
-    price = float(request.data['price'])
-    days = int(request.data['days'])*86400
-    role = ROLES_DICT[request.data['role']]
+    print(request.args)
+    print('------------------------------')
+    authorscore = float(request.args['averageScore'])
+    price = float(request.args['price'])
+    days = int(request.args['days'])*86400
+    role = ROLES_DICT[request.args['role']]
     
     reports = get_reports()
     x_test, x_train = get_x_data()
@@ -123,7 +125,9 @@ def compute_revenue():
     sample = [get_sample(days, price, authorscore, role, 16)]
     predicted_revenue = model.predict(sample)
     predicted_revenue = predicted_revenue.tolist()
-    return predicted_revenue[0]
+    print(predicted_revenue[0])
+    print('------------------------------')
+    return str(predicted_revenue[0])
     #revenues_test = reports['revenue'][test_data_length:test_data_length*2].tolist()
 
 

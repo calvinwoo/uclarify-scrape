@@ -88,6 +88,7 @@ def compute_example_revenue():
     print(pow(variance,0.5))
 
 def compute_revenue():
+    print(request.data)
     authorscore = float(request.data['averageScore'])
     price = float(request.data['price'])
     days = int(request.data['days'])*86400
