@@ -11,4 +11,4 @@ test = [1, 1]
 
 print lm1.summary();
 #print lm1.bse['genre[T.action/adventure]']
-
+print dir(lm1)
