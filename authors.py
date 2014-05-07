@@ -31,12 +31,9 @@ with open('reportswithscore.csv', 'wb') as csvfile:
     writer.writerow(['title', 'role', 'date', 'authors', 'authorscore', 'price', 'downloads', 'revenue'])
     for report in reports.find():
         if len(report['authors']) is 0:
-            average_score = 0
+            score_max = 0
         else:
-            score_total = 0
-            count = 0
+            score_max = -1
             for author in report['authors']:
-                score_total = score_total + author_average[author]
-                count = count + 1
-            average_score = score_total / count
-        writer.writerow([report['title'].encode('ascii', 'ignore'), report['role'], report['date'], report['authors'], average_score, report['price'], report['downloads'], report['revenue']])
+                score_max = max(score_max, author_average[author])
+        writer.writerow([report['title'].encode('ascii', 'ignore'), report['role'], report['date'], report['authors'], score_max, report['price'], report['downloads'], report['revenue']])
