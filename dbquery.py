@@ -41,7 +41,8 @@ for role, revenues in roles.items():
     averages[role] = average
 print averages
 
-f = open('rolerevenue.txt', 'w')
+f = open('role revenue.csv', 'w')
+f.write('role,average'+'\n')
 for role, average in averages.items():
-    f.write('role: '+role+'\t \t'+'average: '+str(average)+'\n')
+    f.write(role+','+str(average)+'\n')
 f.close()
