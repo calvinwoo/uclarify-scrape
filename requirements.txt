@@ -31,9 +31,8 @@ ipython==2.0.0
 itsdangerous==0.24
 kombu==2.5.6
 macholib==1.5
-matplotlib==1.1.1
-modulegraph==0.10.1
 numpy==1.8.1
+modulegraph==0.10.1
 pandas==0.13.1
 pathtools==0.1.2
 patsy==0.2.1
