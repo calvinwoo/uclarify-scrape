@@ -70,14 +70,35 @@ def compute_example_revenue():
     predicted_revenue = model.predict(x_test)
     predicted_revenue = predicted_revenue.tolist()
     revenues_test = reports['revenue'][test_data_length:test_data_length*2].tolist()
-
+    
     diff_list = []
     total = 0
+    revenue_total = 0
+    revenue_real_total = 0
+
+    heading = 'Date,Price,AuthorScore,'
+    for elem in range(1,17):
+        heading+= 'Role'+str(elem)+','
+    heading += 'Predicted Revenue,Actual Revenue'
+    print heading
 
     for elem in range(0, len(predicted_revenue)):
-        print 'predicted_revenue:' + str(predicted_revenue[elem]) + ' Real:' + str(revenues_test[elem])
+        sample = x_test[elem]
+        row = ''
+
+        for var in sample:
+            row += str(var)+','
+        row += str(predicted_revenue[elem]) + ',' + str(revenues_test[elem])
+        print row
+        
         total += predicted_revenue[elem] - revenues_test[elem]
-    mean = float(total)/float(len(predicted_revenue))
+        revenue_total += predicted_revenue[elem]
+        revenue_real_total += revenues_test[elem]
+
+    num_samples = float(len(predicted_revenue))
+    revenue_mean = float(revenue_total)/num_samples
+    revenue_real_mean = float(revenue_real_total)/num_samples
+    mean = float(total)/num_samples
 
     std_dev_sum = 0
     for elem in range(0, len(predicted_revenue)):
@@ -85,7 +106,10 @@ def compute_example_revenue():
         std_dev_sum += pow(difference - mean, 2)
 
     variance = float(std_dev_sum)/float(len(predicted_revenue))
-    print(pow(variance,0.5))
+    print 'Std Dev:' + str(pow(variance,0.5))
+    print 'Difference Mean:' + str(mean)
+    print 'Predicted Mean:' + str(revenue_mean)
+    print 'Actual Mean:' + str(revenue_real_mean)
 
 def compute_revenue():
     print(request.data)

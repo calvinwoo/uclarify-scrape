@@ -71,9 +71,10 @@ def grab_analyst_links(html):
     links = []
     soup = BeautifulSoup(html, 'html5lib')
     div = soup.find('div', class_ = 'analyst-showcase')
-    for a_href in div.find_all('a'):
-        name = a_href.get_text()
-        links.append(name)
+    for ul in div.find_all('ul', class_='analyst-listing'):
+        for a_href in ul.find_all('a'):
+            name = a_href.get_text()
+            links.append(name)
     return links
 
 def grab_info(html):
