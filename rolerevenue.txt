@@ -1,0 +1,16 @@
+role: CMO	 	average: 352757.359477
+role: Content & Collaboration	 	average: 429989.222222
+role: Application Development & Delivery	 	average: 809365.541508
+role: Consumer Product Strategy	 	average: 340068.5
+role: CIO	 	average: 684666.291318
+role: Marketing Leadership	 	average: 514145.17408
+role: Sales Enablement	 	average: 367849.985163
+role: Enterprise Architecture	 	average: 657121.288687
+role: Security & Risk	 	average: 675361.613559
+role: Infrastructure & Operations	 	average: 630592.115145
+role: Business Process	 	average: 962159.266667
+role: eBusiness & Channel Strategy	 	average: 441006.531113
+role: Analyst Relations	 	average: 190838.147059
+role: Sourcing & Vendor Management	 	average: 483121.074745
+role: Customer Insights	 	average: 546547.852792
+role: Customer Experience	 	average: 350300.31
