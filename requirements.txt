@@ -15,7 +15,6 @@ anyjson==0.3.3
 argh==0.24.1
 bdist-mpkg==0.4.4
 billiard==2.7.3.21
-bonjour-py==0.3
 celery==3.0.15
 dj-database-url==0.2.2
 dj-static==0.0.5
