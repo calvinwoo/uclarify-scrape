@@ -55,3 +55,7 @@ docs/_build/
 #OS crap
 *.DS_Store
 *.swp
+
+
+venv
+*.pyc
